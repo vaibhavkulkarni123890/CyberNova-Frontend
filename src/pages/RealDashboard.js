@@ -707,84 +707,302 @@ export default function RealDashboard() {
                   <Grid item xs={12} lg={4}>
                     <Card sx={{ bgcolor: 'rgba(255,255,255,0.03)', mb: 2 }}>
                       <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
-                        <Typography 
-                          variant="subtitle2" 
-                          sx={{ 
-                            mb: 2, 
-                            opacity: 0.7,
-                            fontSize: { xs: '0.75rem', sm: '0.875rem' }
-                          }}
+                        <Stack 
+                          direction="row" 
+                          alignItems="center" 
+                          justifyContent="space-between"
+                          sx={{ mb: 2 }}
                         >
-                          System Information
-                        </Typography>
-                        {scanData?.system_info ? (
-                          <Stack spacing={1}>
-                            <Typography variant="body2" sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>
-                              <strong>Hostname:</strong> {scanData.system_info.hostname}
-                            </Typography>
-                            <Typography variant="body2" sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>
-                              <strong>Platform:</strong> {scanData.system_info.platform}
-                            </Typography>
-                            <Typography variant="body2" sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>
-                              <strong>IP Address:</strong> {scanData.system_info.ip_address}
-                            </Typography>
-                            <Typography variant="body2" sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>
-                              <strong>Architecture:</strong> {scanData.system_info.architecture}
-                            </Typography>
-                          </Stack>
-                        ) : (
                           <Typography 
-                            variant="body2" 
+                            variant="subtitle2" 
                             sx={{ 
-                              opacity: 0.6,
+                              opacity: 0.7,
                               fontSize: { xs: '0.75rem', sm: '0.875rem' }
                             }}
                           >
-                            No system information available. Run a scan to get details.
+                            System Information
                           </Typography>
-                        )}
+                          {expandedCards.systemInfo ? (
+                            <IconButton 
+                              size="small" 
+                              onClick={() => toggleCardExpansion('systemInfo')}
+                              sx={{ display: { xs: 'block', md: 'none' } }}
+                            >
+                              <ExpandLess />
+                            </IconButton>
+                          ) : (
+                            <IconButton 
+                              size="small" 
+                              onClick={() => toggleCardExpansion('systemInfo')}
+                              sx={{ display: { xs: 'block', md: 'none' } }}
+                            >
+                              <ExpandMore />
+                            </IconButton>
+                          )}
+                        </Stack>
+                        
+                        <Collapse 
+                          in={expandedCards.systemInfo || !isMobile} 
+                          timeout="auto" 
+                          unmountOnExit
+                        >
+                          {scanData?.system_info ? (
+                            <Stack spacing={1}>
+                              <Box sx={{ 
+                                display: 'grid', 
+                                gridTemplateColumns: { xs: '1fr', sm: 'auto 1fr' },
+                                gap: { xs: 0.5, sm: 1 },
+                                alignItems: 'start'
+                              }}>
+                                <Typography 
+                                  variant="body2" 
+                                  sx={{ 
+                                    fontSize: { xs: '0.7rem', sm: '0.875rem' },
+                                    fontWeight: 600,
+                                    color: 'primary.main'
+                                  }}
+                                >
+                                  Hostname:
+                                </Typography>
+                                <Typography 
+                                  variant="body2" 
+                                  sx={{ 
+                                    fontSize: { xs: '0.7rem', sm: '0.875rem' },
+                                    wordBreak: 'break-all'
+                                  }}
+                                >
+                                  {scanData.system_info.hostname}
+                                </Typography>
+                                
+                                <Typography 
+                                  variant="body2" 
+                                  sx={{ 
+                                    fontSize: { xs: '0.7rem', sm: '0.875rem' },
+                                    fontWeight: 600,
+                                    color: 'primary.main'
+                                  }}
+                                >
+                                  Platform:
+                                </Typography>
+                                <Typography 
+                                  variant="body2" 
+                                  sx={{ 
+                                    fontSize: { xs: '0.7rem', sm: '0.875rem' },
+                                    wordBreak: 'break-all'
+                                  }}
+                                >
+                                  {scanData.system_info.platform}
+                                </Typography>
+                                
+                                <Typography 
+                                  variant="body2" 
+                                  sx={{ 
+                                    fontSize: { xs: '0.7rem', sm: '0.875rem' },
+                                    fontWeight: 600,
+                                    color: 'primary.main'
+                                  }}
+                                >
+                                  IP Address:
+                                </Typography>
+                                <Typography 
+                                  variant="body2" 
+                                  sx={{ 
+                                    fontSize: { xs: '0.7rem', sm: '0.875rem' },
+                                    wordBreak: 'break-all'
+                                  }}
+                                >
+                                  {scanData.system_info.ip_address}
+                                </Typography>
+                                
+                                <Typography 
+                                  variant="body2" 
+                                  sx={{ 
+                                    fontSize: { xs: '0.7rem', sm: '0.875rem' },
+                                    fontWeight: 600,
+                                    color: 'primary.main'
+                                  }}
+                                >
+                                  Architecture:
+                                </Typography>
+                                <Typography 
+                                  variant="body2" 
+                                  sx={{ 
+                                    fontSize: { xs: '0.7rem', sm: '0.875rem' },
+                                    wordBreak: 'break-all'
+                                  }}
+                                >
+                                  {scanData.system_info.architecture}
+                                </Typography>
+                                
+                                {scanData.system_info.cpu_count && (
+                                  <>
+                                    <Typography 
+                                      variant="body2" 
+                                      sx={{ 
+                                        fontSize: { xs: '0.7rem', sm: '0.875rem' },
+                                        fontWeight: 600,
+                                        color: 'primary.main'
+                                      }}
+                                    >
+                                      CPU Cores:
+                                    </Typography>
+                                    <Typography 
+                                      variant="body2" 
+                                      sx={{ 
+                                        fontSize: { xs: '0.7rem', sm: '0.875rem' }
+                                      }}
+                                    >
+                                      {scanData.system_info.cpu_count}
+                                    </Typography>
+                                  </>
+                                )}
+                                
+                                {scanData.system_info.memory_total && (
+                                  <>
+                                    <Typography 
+                                      variant="body2" 
+                                      sx={{ 
+                                        fontSize: { xs: '0.7rem', sm: '0.875rem' },
+                                        fontWeight: 600,
+                                        color: 'primary.main'
+                                      }}
+                                    >
+                                      Memory:
+                                    </Typography>
+                                    <Typography 
+                                      variant="body2" 
+                                      sx={{ 
+                                        fontSize: { xs: '0.7rem', sm: '0.875rem' }
+                                      }}
+                                    >
+                                      {(scanData.system_info.memory_total / (1024**3)).toFixed(1)} GB
+                                    </Typography>
+                                  </>
+                                )}
+                              </Box>
+                            </Stack>
+                          ) : (
+                            <Typography 
+                              variant="body2" 
+                              sx={{ 
+                                opacity: 0.6,
+                                fontSize: { xs: '0.7rem', sm: '0.875rem' },
+                                textAlign: 'center',
+                                py: 2
+                              }}
+                            >
+                              No system information available. Run a scan to get details.
+                            </Typography>
+                          )}
+                        </Collapse>
                       </CardContent>
                     </Card>
 
                     <Card sx={{ bgcolor: 'rgba(255,255,255,0.03)' }}>
                       <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
-                        <Typography 
-                          variant="subtitle2" 
-                          sx={{ 
-                            mb: 2, 
-                            opacity: 0.7,
-                            fontSize: { xs: '0.75rem', sm: '0.875rem' }
-                          }}
+                        <Stack 
+                          direction="row" 
+                          alignItems="center" 
+                          justifyContent="space-between"
+                          sx={{ mb: 2 }}
                         >
-                          Quick Actions
-                        </Typography>
-                        <Stack spacing={2}>
-                          <Button
-                            variant="contained"
-                            startIcon={<Scanner />}
-                            onClick={startManualScan}
-                            disabled={scanStatus === 'scanning'}
-                            fullWidth
-                            size={isSmallScreen ? "small" : "medium"}
-                            sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}
+                          <Typography 
+                            variant="subtitle2" 
+                            sx={{ 
+                              opacity: 0.7,
+                              fontSize: { xs: '0.75rem', sm: '0.875rem' }
+                            }}
                           >
-                            {scanStatus === 'scanning' ? 'Scanning...' : 'Start Full Scan'}
-                          </Button>
-                          <FormControlLabel
-                            control={
-                              <Switch
-                                checked={autoScan}
-                                onChange={(e) => setAutoScan(e.target.checked)}
-                                size={isSmallScreen ? "small" : "medium"}
-                              />
-                            }
-                            label={
-                              <Typography sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>
-                                Auto-scan (every 20s)
-                              </Typography>
-                            }
-                          />
+                            Quick Actions
+                          </Typography>
+                          {expandedCards.quickActions ? (
+                            <IconButton 
+                              size="small" 
+                              onClick={() => toggleCardExpansion('quickActions')}
+                              sx={{ display: { xs: 'block', md: 'none' } }}
+                            >
+                              <ExpandLess />
+                            </IconButton>
+                          ) : (
+                            <IconButton 
+                              size="small" 
+                              onClick={() => toggleCardExpansion('quickActions')}
+                              sx={{ display: { xs: 'block', md: 'none' } }}
+                            >
+                              <ExpandMore />
+                            </IconButton>
+                          )}
                         </Stack>
+                        
+                        <Collapse 
+                          in={expandedCards.quickActions || !isMobile} 
+                          timeout="auto" 
+                          unmountOnExit
+                        >
+                          <Stack spacing={2}>
+                            <Button
+                              variant="contained"
+                              startIcon={<Scanner />}
+                              onClick={startManualScan}
+                              disabled={scanStatus === 'scanning'}
+                              fullWidth
+                              size={isSmallScreen ? "small" : "medium"}
+                              sx={{ 
+                                fontSize: { xs: '0.7rem', sm: '0.875rem' },
+                                py: { xs: 1, sm: 1.5 }
+                              }}
+                            >
+                              {scanStatus === 'scanning' ? 'Scanning...' : 'Start Full Scan'}
+                            </Button>
+                            
+                            <Button
+                              variant="outlined"
+                              onClick={resetScanData}
+                              fullWidth
+                              size={isSmallScreen ? "small" : "medium"}
+                              sx={{ 
+                                fontSize: { xs: '0.7rem', sm: '0.875rem' },
+                                py: { xs: 1, sm: 1.5 }
+                              }}
+                            >
+                              Reset Scan Data
+                            </Button>
+                            
+                            <FormControlLabel
+                              control={
+                                <Switch
+                                  checked={autoScan}
+                                  onChange={(e) => setAutoScan(e.target.checked)}
+                                  size={isSmallScreen ? "small" : "medium"}
+                                />
+                              }
+                              label={
+                                <Typography sx={{ fontSize: { xs: '0.7rem', sm: '0.875rem' } }}>
+                                  Auto-scan (every 30s)
+                                </Typography>
+                              }
+                              sx={{ 
+                                m: 0,
+                                '& .MuiFormControlLabel-label': {
+                                  fontSize: { xs: '0.7rem', sm: '0.875rem' }
+                                }
+                              }}
+                            />
+                            
+                            {wsConnected && (
+                              <Chip
+                                size="small"
+                                label="Real-time Monitoring Active"
+                                color="success"
+                                icon={<CheckCircle />}
+                                sx={{ 
+                                  fontSize: { xs: '0.6rem', sm: '0.75rem' },
+                                  height: { xs: 24, sm: 32 }
+                                }}
+                              />
+                            )}
+                          </Stack>
+                        </Collapse>
                       </CardContent>
                     </Card>
                   </Grid>
