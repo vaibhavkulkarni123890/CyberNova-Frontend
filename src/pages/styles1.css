@@ -1,0 +1,204 @@
+/* Root and theme-like vars */
+:root {
+    --rd-bg: #ffffff;
+    --rd-panel: #ffffff;
+    --rd-text: #1f2937;
+    --rd-muted: #6b7280;
+    --rd-divider: #e5e7eb;
+    --rd-hover: #f9fafb;
+    --rd-radius: 10px;
+    --rd-shadow: 0 1px 2px rgba(0,0,0,0.06), 0 2px 6px rgba(0,0,0,0.04);
+    
+    --rd-badge-low: #2563eb;
+    --rd-badge-medium: #f59e0b;
+    --rd-badge-high: #ef4444;
+    --rd-badge-na: #6b7280;
+    }
+    
+    /* Container + spacing */
+    .rd-container {
+    padding: 8px;
+    color: var(--rd-text);
+    background: transparent;
+    }
+    @media (min-width: 600px) {
+    .rd-container { padding: 16px; }
+    }
+    
+  
+    .rd-empty {
+    border: 1px solid var(--rd-divider);
+    border-radius: var(--rd-radius);
+    padding: 16px;
+    text-align: center;
+    color: var(--rd-muted);
+    background: var(--rd-panel);
+    box-shadow: var(--rd-shadow);
+    }
+    
+    /* Table wrapper with horizontal scroll */
+    .rd-table-wrap {
+    position: relative;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    background: var(--rd-panel);
+    border-radius: var(--rd-radius);
+    box-shadow: var(--rd-shadow);
+    }
+    
+  
+    .rd-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 720px;
+    }
+    
+    /* Header cells: sticky */
+    .rd-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--rd-panel);
+    text-align: left;
+    font-weight: 600;
+    color: var(--rd-text);
+    padding: 12px 14px;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--rd-divider);
+    }
+    
+    /* Body cells */
+    .rd-table tbody td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--rd-divider);
+    vertical-align: middle;
+    color: var(--rd-text);
+    }
+    
+    /* Row hover */
+    .rd-table tbody tr:hover {
+    background: var(--rd-hover);
+    }
+    
+    /* First/last cell rounding illusion */
+    .rd-table thead th:first-child,
+    .rd-table tbody td:first-child {
+    padding-left: 16px;
+    }
+    .rd-table thead th:last-child,
+    .rd-table tbody td:last-child {
+    padding-right: 16px;
+    }
+    
+    /* Optional columns hidden on mobile (apply to th and matching tds) */
+    @media (max-width: 599.98px) {
+    .rd-table th.col-optional,
+    .rd-table td.col-optional {
+    display: none;
+    }
+    }
+    
+    /* Severity badges (use <span class="rd-badge rd-high">High</span>) */
+    .rd-badge {
+    display: inline-block;
+    font-size: 12px;
+    line-height: 1;
+    font-weight: 600;
+    padding: 6px 8px;
+    border-radius: 999px;
+    color: #fff;
+    }
+    .rd-badge.rd-low { background: var(--rd-badge-low); }
+    .rd-badge.rd-medium { background: var(--rd-badge-medium); }
+    .rd-badge.rd-high,
+    .rd-badge.rd-critical { background: var(--rd-badge-high); }
+    .rd-badge.rd-na { background: var(--rd-badge-na); }
+    
+   
+    .rd-card-list {
+    display: none;
+    gap: 10px;
+    }
+    @media (max-width: 599.98px) {
+   
+    .rd-table-wrap { display: none; }
+    .rd-card-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    }
+    }
+    
+    .rd-card {
+    background: var(--rd-panel);
+    border: 1px solid var(--rd-divider);
+    border-radius: var(--rd-radius);
+    box-shadow: var(--rd-shadow);
+    padding: 12px;
+    }
+    
+    .rd-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 10px;
+    }
+    .rd-card-title {
+    font-weight: 700;
+    color: var(--rd-text);
+    font-size: 14px;
+    }
+    
+    .rd-card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 12px;
+    }
+    @media (min-width: 420px) and (max-width: 599.98px) {
+    .rd-card-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 419.98px) {
+    .rd-card-grid { grid-template-columns: 1fr; }
+    }
+    
+    .rd-field .rd-label {
+    font-size: 11px;
+    color: var(--rd-muted);
+    margin-bottom: 2px;
+    }
+    .rd-field .rd-value {
+    font-size: 13px;
+    color: var(--rd-text);
+    }
+    
+    /* Utilities if needed */
+    .rd-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    }
+    
+    /* Optional: sticky first column on larger screens */
+    @media (min-width: 900px) {
+    .rd-table td:first-child,
+    .rd-table th:first-child {
+    position: sticky;
+    left: 0;
+    background: var(--rd-panel);
+    }
+    }
+    
+    /* Focus styles for accessibility */
+    .rd-table tbody td:focus-within,
+    .rd-card:focus-within {
+    outline: 2px solid rgba(59,130,246,0.6);
+    outline-offset: -2px;
+    }
+    
+   
+    @media (prefers-reduced-motion: reduce) {
+    
+    { transition: none !important; }
+    }
